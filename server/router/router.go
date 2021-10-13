@@ -1,22 +1,21 @@
 package router
 
 import (
+	"app/server/common/result"
 	"errors"
 	"github.com/gofiber/fiber/v2"
-	rec "github.com/gofiber/fiber/v2/middleware/recover"
 )
 
 func New(config ...fiber.Config) *fiber.App {
 
 	app := fiber.New(config...)
 
-	app.Use(rec.New())
+	//app.Use(rec.New())
+
+	var r result.Result
 
 	app.Get("/", func(ctx *fiber.Ctx) error {
-		return ctx.JSON(fiber.Map{
-			"code":200,
-			"message":"ok",
-		})
+		return r.Ctx(ctx).Success()
 	})
 
 	app.Get("/err", func(ctx *fiber.Ctx) error {

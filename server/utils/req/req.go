@@ -1,4 +1,4 @@
-package utils
+package req
 
 import (
 	"github.com/PuerkitoBio/goquery"
@@ -19,7 +19,7 @@ func Get(url string) (string, error) {
 func Document(url string) (*goquery.Document, error) {
 	resp, err := Get(url)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(resp))
 	if err != nil {
