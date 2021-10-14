@@ -16,4 +16,6 @@ type BookRule struct {
 	Chapter          string `json:"chapter"`
 	ChapterName      string `json:"chapter_name"`
 	ChapterUrl       string `json:"chapter_url"`
+	ContentTitle     string `json:"content_title"`
+	ContentBody      string `json:"content_body"`
 }

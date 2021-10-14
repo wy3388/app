@@ -1,6 +1,8 @@
 package req
 
 import (
+	"app/server/model"
+	"app/server/utils"
 	"github.com/PuerkitoBio/goquery"
 	"io"
 	"io/ioutil"
@@ -9,15 +11,16 @@ import (
 	"time"
 )
 
-func Get(url string) (string, error) {
-	headers := map[string]string{
-		"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36 Edg/94.0.992.38",
-	}
+func Get(url string, headers map[string]string) (string, error) {
 	return Request(url, "GET", nil, headers)
 }
 
-func Document(url string) (*goquery.Document, error) {
-	resp, err := Get(url)
+func Document(url string, source model.Source) (*goquery.Document, error) {
+	var headers map[string]string
+	if source.Header != "" {
+		utils.ToObj(source.Header, &headers)
+	}
+	resp, err := Get(url, headers)
 	if err != nil {
 		return nil, err
 	}

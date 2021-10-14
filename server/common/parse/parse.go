@@ -51,7 +51,7 @@ func (Parse) Selection(sel *goquery.Selection, source model.Source) *parse {
 }
 
 func (Parse) Url(url string, source model.Source) *parse {
-	doc, err := req.Document(url)
+	doc, err := req.Document(url, source)
 	if err != nil {
 		panic(err)
 	}
@@ -104,19 +104,21 @@ func (p *parse) Text() string {
 	if p.sel == nil {
 		return ""
 	}
+	text := ""
 	if p.rule.Type == "" || p.rule.Type == "text" {
-		text := p.sel.Text()
-		if p.rule.Regexp != "" {
-			text = regexp.MustCompile(p.rule.Regexp).FindString(text)
-		}
-		if len(p.rule.Replace) > 0 {
-			for _, r := range p.rule.Replace {
-				text = strings.ReplaceAll(text, r.Key, r.Value)
-			}
-		}
-		return text
+		text = p.sel.Text()
+	} else {
+		text = p.Html()
 	}
-	return p.Html()
+	if p.rule.Regexp != "" {
+		text = regexp.MustCompile(p.rule.Regexp).FindString(text)
+	}
+	if len(p.rule.Replace) > 0 {
+		for _, r := range p.rule.Replace {
+			text = strings.ReplaceAll(text, r.Key, r.Value)
+		}
+	}
+	return text
 }
 
 func (p *parse) Html() string {

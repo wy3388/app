@@ -1,26 +1,34 @@
 package router
 
 import (
-	"app/server/common/result"
-	"errors"
+	"app/server/api"
 	"github.com/gofiber/fiber/v2"
+	recover2 "github.com/gofiber/fiber/v2/middleware/recover"
 )
 
-func New(config ...fiber.Config) *fiber.App {
+func New() *fiber.App {
 
-	app := fiber.New(config...)
-
-	//app.Use(rec.New())
-
-	var r result.Result
-
-	app.Get("/", func(ctx *fiber.Ctx) error {
-		return r.Ctx(ctx).Success()
+	app := fiber.New(fiber.Config{
+		ErrorHandler: func(ctx *fiber.Ctx, err error) error {
+			if err != nil {
+				return ctx.JSON(fiber.Map{
+					"code":    201,
+					"message": err.Error(),
+				})
+			}
+			return nil
+		},
 	})
 
-	app.Get("/err", func(ctx *fiber.Ctx) error {
-		panic(errors.New("出错啦"))
-	})
+	app.Use(recover2.New())
+
+	var bc api.BookController
+
+	app.Get("/search", bc.Search)
+
+	app.Get("/info", bc.Info)
+
+	app.Get("/body", bc.Body)
 
 	return app
 }
