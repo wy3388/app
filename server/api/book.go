@@ -12,6 +12,10 @@ type BookController struct {
 var bs service.BookService
 var r result.Result
 
+func (BookController) Source(ctx *fiber.Ctx) error {
+	return r.Ctx(ctx).SetData(bs.Source()).Success()
+}
+
 func (BookController) Search(ctx *fiber.Ctx) error {
 	var s service.SearchReq
 	if err := ctx.QueryParser(&s); err != nil {

@@ -53,6 +53,13 @@ type BookService struct {
 
 var p parse.Parse
 
+func (BookService) Source() (s []*model.Source) {
+	if err := db.Find(&s).Error; err != nil {
+		panic(err)
+	}
+	return
+}
+
 func (BookService) Search(req *SearchReq) (sl []*Search) {
 	var s model.Source
 	if err := db.Preload("BookRule").First(&s, req.Id).Error; err != nil {

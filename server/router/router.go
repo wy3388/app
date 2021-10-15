@@ -23,11 +23,9 @@ func New() *fiber.App {
 	app.Use(recover2.New())
 
 	var bc api.BookController
-
+	app.Get("/source", bc.Source)
 	app.Get("/search", bc.Search)
-
 	app.Get("/info", bc.Info)
-
 	app.Get("/body", bc.Body)
 
 	return app

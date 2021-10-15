@@ -60,7 +60,8 @@
     },
     "rules": {
       "vue/script-setup-uses-vars": "error",
-      "@typescript-eslint/no-var-requires": 0
+      "@typescript-eslint/no-var-requires": 0,
+      "@typescript-eslint/no-explicit-any": 0
     },
     "globals": {
       "defineProps": "readonly"
