@@ -1,7 +1,7 @@
 package model
 
 type BookRule struct {
-	ID               uint   `json:"id"`
+	ID               uint   `json:"id" gorm:"primary_key"`
 	SourceID         uint   `json:"source_id"`
 	Search           string `json:"search"`
 	SearchBookName   string `json:"search_book_name"`

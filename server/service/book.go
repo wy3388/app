@@ -30,7 +30,7 @@ type Book struct {
 	UpdateTime  string     `json:"update_time"`
 	Info        string     `json:"info"`
 	ImageUrl    string     `json:"image_url"`
-	ChapterList []*Chapter `json:"chapter"`
+	ChapterList []*Chapter `json:"chapter_list"`
 }
 
 type Chapter struct {
@@ -123,4 +123,8 @@ func (BookService) Body(req *BodyReq) *Content {
 		Title: title,
 		Body:  body,
 	}
+}
+
+func (BookService) AddBookSelf(m *model.BookSelf) {
+	db.Save(m)
 }

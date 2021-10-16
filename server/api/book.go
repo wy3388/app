@@ -2,6 +2,7 @@ package api
 
 import (
 	"app/server/common/result"
+	"app/server/model"
 	"app/server/service"
 	"github.com/gofiber/fiber/v2"
 )
@@ -41,4 +42,13 @@ func (BookController) Body(ctx *fiber.Ctx) error {
 	}
 	body := bs.Body(&b)
 	return r.Ctx(ctx).SetData(body).Success()
+}
+
+func (BookController) AddBookSelf(ctx *fiber.Ctx) error {
+	var b model.BookSelf
+	if err := ctx.BodyParser(&b); err != nil {
+		panic(err.Error())
+	}
+	bs.AddBookSelf(&b)
+	return r.Ctx(ctx).Success()
 }

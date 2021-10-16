@@ -1,7 +1,7 @@
 import {spawn} from 'child_process'
 import iconv from 'iconv-lite'
 
-const startServer = (): void => {
+const startServer = () => {
     const isDevelopment = process.env.NODE_ENV !== 'production'
     const path = isDevelopment ? './' : './resources/'
     let cmd = ''
@@ -28,9 +28,9 @@ const startServer = (): void => {
     })
 }
 
-const stopServer = (): void => {
+const stopServer = () => {
     let cmd = ''
-    let args: string[] = []
+    let args = []
     if (process.platform === 'win32') {
         cmd = 'taskkill'
         args = ['/f', '/t', '/im', 'server.exe']
@@ -53,5 +53,3 @@ export default {
     startServer,
     stopServer
 }
-
-
