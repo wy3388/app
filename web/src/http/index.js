@@ -67,12 +67,12 @@ const content = async (url, id) => {
     return await get(`body?url=${url}&id=${id}`)
 }
 
-const addBookSelf = async (book_url, book_name, chapter_url) => {
-    return await post('addBookSelf', {
-        book_url: book_url,
-        book_name: book_name,
-        chapter_url: chapter_url
-    }, true)
+const addBookSelf = async (params) => {
+    return await post('addBookSelf', params, true)
+}
+
+const listBookSelf = async () => {
+    return await get('listBookSelf')
 }
 
 export {
@@ -80,5 +80,6 @@ export {
     search,
     info,
     content,
-    addBookSelf
+    addBookSelf,
+    listBookSelf
 }

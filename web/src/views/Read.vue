@@ -13,7 +13,7 @@ const params = {
   url: route.query.url
 }
 
-const body = ref()
+const body = ref({})
 const loading = ref(false)
 
 let chapter = {

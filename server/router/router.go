@@ -28,6 +28,7 @@ func New() *fiber.App {
 	app.Get("/info", bc.Info)
 	app.Get("/body", bc.Body)
 	app.Post("/addBookSelf", bc.AddBookSelf)
+	app.Get("/listBookSelf", bc.ListBookSelf)
 
 	return app
 }

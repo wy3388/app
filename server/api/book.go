@@ -52,3 +52,8 @@ func (BookController) AddBookSelf(ctx *fiber.Ctx) error {
 	bs.AddBookSelf(&b)
 	return r.Ctx(ctx).Success()
 }
+
+func (BookController) ListBookSelf(ctx *fiber.Ctx) error {
+	b := bs.ListBookSelf()
+	return r.Ctx(ctx).SetData(b).Success()
+}

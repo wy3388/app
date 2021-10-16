@@ -1,8 +1,16 @@
 <script setup>
 import {useRouter} from "vue-router";
+import {onMounted, ref} from "vue";
+import {listBookSelf} from "@/http";
 
-const bookList = [1]
 const router = useRouter()
+const book_self_list = ref([])
+const loading = ref(true)
+
+onMounted(async () => {
+  book_self_list.value = await listBookSelf()
+  loading.value = false
+})
 
 const toSearch = () => {
   router.push({path: '/search'})
@@ -14,12 +22,15 @@ const toRead = () => {
 </script>
 
 <template>
-  <div class="box">
-    <div class="box-item" v-show="bookList.length > 0" @click="toRead">
+  <div class="box" v-loading="loading">
+    <div class="box-item" v-show="book_self_list.length > 0" @click="toRead" v-for="(item, index) in book_self_list"
+         :key="index">
       <el-card class="wh100">
-        <div class="f16 box-item-book c1 no-select">你好啊啊啊啊啊啊啊啊</div>
-        <div class="f14 box-item-book c3 no-select">第二十章 （爱上发大水发射点发射点）</div>
-        <span class="f12 box-item-percentage c4 no-select">%4</span>
+        <div class="f16 box-item-book c1 no-select">{{ item.book_name }}</div>
+        <div class="f14 box-item-book c3 no-select">{{ item.chapter_name }}</div>
+        <span class="f12 box-item-percentage c4 no-select">{{
+            Math.floor(item.chapter_index / item.chapter_total)
+          }}%</span>
       </el-card>
     </div>
     <div class="box-item" @click="toSearch">

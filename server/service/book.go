@@ -5,6 +5,7 @@ import (
 	"app/server/model"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
+	"time"
 )
 
 type SearchReq struct {
@@ -126,5 +127,17 @@ func (BookService) Body(req *BodyReq) *Content {
 }
 
 func (BookService) AddBookSelf(m *model.BookSelf) {
+	result := db.Model(&model.BookSelf{}).
+		Where("book_name = ? and book_url = ? and chapter_url = ?", m.BookName, m.BookUrl, m.ChapterUrl).
+		First(&model.BookSelf{})
+	if err := result.Error; err == nil {
+		panic("记录已存在")
+	}
+	m.CreateTime = time.Now()
 	db.Save(m)
+}
+
+func (BookService) ListBookSelf() (b []*model.BookSelf) {
+	db.Model(&model.BookSelf{}).Find(&b)
+	return
 }
