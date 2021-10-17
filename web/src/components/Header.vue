@@ -8,9 +8,15 @@ const props = defineProps({
     default: false
   },
   backFun: {
-    type: () => {},
+    type: () => {
+    },
     required: false,
     default: null
+  },
+  title: {
+    type: String,
+    required: false,
+    default: ''
   }
 })
 
@@ -29,6 +35,7 @@ const goBack = () => {
   <div class="header bs">
     <div class="header-back" @click="goBack">
       <img src="../assets/img/back.png" alt="" class="no-select">
+      <span class="f18 no-select c1" v-show="title !== ''">{{ title }}</span>
     </div>
   </div>
 </template>
@@ -51,6 +58,10 @@ const goBack = () => {
     img {
       height: 100%;
       object-fit: cover;
+    }
+
+    span {
+      letter-spacing: 3px;
     }
   }
 }

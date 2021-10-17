@@ -16,20 +16,31 @@ const toSearch = () => {
   router.push({path: '/search'})
 }
 
-const toRead = () => {
-  router.push({path: '/read'})
+const toRead = (item) => {
+  router.push({
+    path: '/read',
+    query: {
+      url: item.chapter_url,
+      id: item.source_id,
+      type: 'home',
+      book_url: item.book_url,
+      chapter_index: item.chapter_index,
+      book_self_id: item.id
+    }
+  })
 }
 </script>
 
 <template>
   <div class="box" v-loading="loading">
-    <div class="box-item" v-show="book_self_list.length > 0" @click="toRead" v-for="(item, index) in book_self_list"
+    <div class="box-item" v-show="book_self_list.length > 0" @click="toRead(item)"
+         v-for="(item, index) in book_self_list"
          :key="index">
       <el-card class="wh100">
         <div class="f16 box-item-book c1 no-select">{{ item.book_name }}</div>
         <div class="f14 box-item-book c3 no-select">{{ item.chapter_name }}</div>
         <span class="f12 box-item-percentage c4 no-select">{{
-            Math.floor(item.chapter_index / item.chapter_total)
+            (item.chapter_index / item.chapter_total).toFixed(2)
           }}%</span>
       </el-card>
     </div>

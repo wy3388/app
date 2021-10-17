@@ -11,7 +11,10 @@ module.exports = {
     },
     pluginOptions: {
         electronBuilder: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            builderOptions: {
+                extraResources: ['./server.exe', './app.db']
+            }
         }
     },
     devServer: {

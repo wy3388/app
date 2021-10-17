@@ -9,16 +9,22 @@ defineProps({
     default: false
   },
   backFun: {
-    type: () => {},
+    type: () => {
+    },
     required: false,
     default: null
+  },
+  title: {
+    type: String,
+    required: false,
+    default: ''
   }
 })
 </script>
 
 <template>
   <div class="body">
-    <Header v-show="showHeader" :back-fun="backFun"/>
+    <Header v-show="showHeader" :back-fun="backFun" :title="title"/>
     <div :class="showHeader?'content':'content100'">
       <el-scrollbar height="100%">
         <slot></slot>

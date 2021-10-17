@@ -23,15 +23,16 @@ onMounted(async () => {
 })
 
 const toRead = (item, index) => {
-  localStorage.setItem("chapter", JSON.stringify({
-    index: index,
-    chapter_list: book.value.chapter_list
-  }))
+  localStorage.setItem("chapter_list", JSON.stringify(book.value.chapter_list))
   router.push({
     path: '/read',
     query: {
       url: item.url,
-      id: params.id
+      id: params.id,
+      type: 'info',
+      book_url: '',
+      chapter_index: 0,
+      book_self_id: 0
     }
   })
 }
@@ -43,7 +44,8 @@ const doAddBookSelf = async () => {
     chapter_url: book.value.chapter_list.length > 0 ? book.value.chapter_list[0].url : '',
     chapter_name: book.value.chapter_list.length > 0 ? book.value.chapter_list[0].title : '',
     chapter_total: book.value.chapter_list.length,
-    chapter_index: 0
+    chapter_index: 0,
+    source_id: parseInt(params.id)
   }
   const [resp, err] = await addBookSelf(param)
       .then(resp => [resp, null])

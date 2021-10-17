@@ -10,5 +10,6 @@ type BookSelf struct {
 	ChapterName  string    `json:"chapter_name"`
 	ChapterTotal uint      `json:"chapter_total"`
 	ChapterIndex uint      `json:"chapter_index"`
+	SourceId     uint      `json:"source_id"`
 	CreateTime   time.Time `json:"create_time"`
 }

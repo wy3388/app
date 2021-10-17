@@ -11,7 +11,7 @@ const router = useRouter()
 const source_list = ref([])
 const source_id = ref()
 const book_list = ref([])
-const name = ref('斗罗大陆')
+const name = ref('')
 const loading = ref(false)
 
 onMounted(async () => {

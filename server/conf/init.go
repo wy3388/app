@@ -16,7 +16,7 @@ func initDb() {
 	nameStrategy := schema.NamingStrategy{
 		SingularTable: true,
 	}
-	db, err := gorm.Open(sqlite.Open("./app.db"), &gorm.Config{
+	db, err := gorm.Open(sqlite.Open("./resources/app.db"), &gorm.Config{
 		NamingStrategy: nameStrategy,
 	})
 	if err != nil {

@@ -1,7 +1,9 @@
 import axios from "axios";
 import {ElMessage} from "element-plus";
 
-const baseUrl = '/api'
+const isDevelopment = process.env.NODE_ENV !== 'production'
+
+const baseUrl = isDevelopment ? '/api' : 'http://localhost:30080/'
 
 const ax = axios.create({
     baseURL: baseUrl
@@ -75,11 +77,16 @@ const listBookSelf = async () => {
     return await get('listBookSelf')
 }
 
+const updateBookSelf = async (params) => {
+    return await post('updateBookSelf', params, true)
+}
+
 export {
     source,
     search,
     info,
     content,
     addBookSelf,
-    listBookSelf
+    listBookSelf,
+    updateBookSelf
 }

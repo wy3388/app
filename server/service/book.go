@@ -49,6 +49,14 @@ type Content struct {
 	Body  string `json:"body"`
 }
 
+type UpdateBookSelfReq struct {
+	Id           uint   `json:"id"`
+	ChapterUrl   string `json:"chapter_url"`
+	ChapterName  string `json:"chapter_name"`
+	ChapterTotal uint   `json:"chapter_total"`
+	ChapterIndex uint   `json:"chapter_index"`
+}
+
 type BookService struct {
 }
 
@@ -140,4 +148,20 @@ func (BookService) AddBookSelf(m *model.BookSelf) {
 func (BookService) ListBookSelf() (b []*model.BookSelf) {
 	db.Model(&model.BookSelf{}).Find(&b)
 	return
+}
+
+func (BookService) UpdateBookSelf(r *UpdateBookSelfReq) {
+	result := db.Model(&model.BookSelf{}).First(&model.BookSelf{}, r.Id)
+	if err := result.Error; err != nil {
+		panic("记录不存在")
+	}
+	result = db.Model(&model.BookSelf{}).Where("id = ?", r.Id).Updates(model.BookSelf{
+		ChapterUrl:   r.ChapterUrl,
+		ChapterIndex: r.ChapterIndex,
+		ChapterName:  r.ChapterName,
+		ChapterTotal: r.ChapterTotal,
+	})
+	if err := result.Error; err != nil {
+		panic("更新失败")
+	}
 }

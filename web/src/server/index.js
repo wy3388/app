@@ -49,7 +49,7 @@ const stopServer = () => {
     })
 }
 
-export default {
+export {
     startServer,
     stopServer
 }
